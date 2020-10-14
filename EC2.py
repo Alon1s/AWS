@@ -1,6 +1,6 @@
 import boto3
 
-choice = input("enter  your  choice: \n1.describe your instances \n2.deploy your instances \n3.destroy your instances \n4.stop your instances \n5.start your instances")
+choice = input("Here are some options: \n1.describe your instances \n2.deploy your instances \n3.destroy your instances \n4.stop your instances \n5.start your instances\n")
 #Describe an instance
 if choice == "1":
     client = boto3.client('ec2')

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="759448fd-d7e0-44af-99a0-c0219dabbf4b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EC2.py" afterDir="false" />
+    <list default="true" id="759448fd-d7e0-44af-99a0-c0219dabbf4b" name="Default Changelist" comment="Ec2">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +23,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="EC2" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -57,7 +57,18 @@
       <option name="presentableId" value="Default" />
       <updated>1602671462300</updated>
     </task>
+    <task id="LOCAL‎00001" summary="Ec2">
+      <created>1602671989177</created>
+      <option name="number" value="LOCAL‎00001" />
+      <option name="presentableId" value="LOCAL‎00001" />
+      <updated>1602671989177</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ec2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ec2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1060" y="151" key="FileChooserDialogImpl" timestamp="1602671547091">
@@ -72,16 +83,14 @@
       <screen x="-1680" y="-95" width="1680" height="1010" />
     </state>
     <state x="-1031" y="115" key="Github.UntrackedFilesDialog/0.0.1366.728/-1680.-95.1680.1010@-1680.-95.1680.1010" timestamp="1602671747572" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EC2.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="-1291" y="1" key="SettingsEditor" timestamp="1602673068014">
+      <screen x="-1680" y="-95" width="1680" height="1010" />
+    </state>
+    <state x="-1339" y="55" key="SettingsEditor/0.0.1366.728/-1680.-95.1680.1010@-1680.-95.1680.1010" timestamp="1602671866707" />
+    <state x="-1291" y="1" key="SettingsEditor/0.0.1366.728/-1680.-95.1680.1010@0.0.1366.728" timestamp="1602673068014" />
+    <state x="-1248" y="143" key="Vcs.Push.Dialog.v2" timestamp="1602671899872">
+      <screen x="-1680" y="-95" width="1680" height="1010" />
+    </state>
+    <state x="-1248" y="143" key="Vcs.Push.Dialog.v2/0.0.1366.728/-1680.-95.1680.1010@-1680.-95.1680.1010" timestamp="1602671899872" />
   </component>
 </project>
