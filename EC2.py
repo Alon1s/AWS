@@ -35,15 +35,21 @@ while("True"):
 
 #Stop an instance
     elif (choice == "4"):
-        instances = input("enter the ids of the instance that you want to stop:")
-        ids = [instances]
-        ec2.instances.filter(InstanceIds=ids).stop()
+        tagname = input("Please fill an instance name: ")
+        tagvalue = input("Please fill a Value: ")
+        ec2.instances.filter(Filters=[
+            {'Name': 'tag': [tagname], 'Values': [tagvalue]},
+            {'Name': 'instance-state-name', 'Values': ['stopped']}
+        ]).stop()
 
 #Start an instnace
     elif (choice == "5"):
-        instances = input("enter the ids of the instance that you want to start:")
-        ids = [instances]
-        ec2.start_instances(InstanceIds=ids)
+        tagname = input("Please fill an instance name: ")
+        tagvalue = input("Please fill a Value: ")
+        ec2.instances.filter(Filters=[
+            {'Name': 'tag': [tagname], 'Values': [tagvalue]},
+            {'Name': 'instance-state-name', 'Values': ['running']}
+        ]).start()
         
     exit= input("Do you want something else? y/n")
     if(exit == "y" or exit == "yes")
