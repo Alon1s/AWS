@@ -7,7 +7,7 @@ if choice == "1":
     response = client.describe_instances()
     for x in response['Reservations']:
         for y in x['Instances']:
-            print("ID: " + y['InstanceId'] + "\nIP Address: " + y['PublicIpAddress'] + "\n---------------------------------------")
+            print("ID: " + y['InstanceId'] + "\nIP Address: " + y['PublicIpAddress'])
 # create a new EC2 instance
 elif choice == "2":
     ec2 = boto3.resource('ec2')
