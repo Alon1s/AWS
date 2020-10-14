@@ -13,14 +13,21 @@ while("True"):
 # create a new EC2 instance
     elif (choice == "2"):
         instances = ec2.create_instances(
-            ImageId='ami-0bbe28eb2173f6167',
+            ImageId=input("Pleae fill an ImageId: "),
             MinCount=1,
             MaxCount=int(input("enter how many instances do you want:\n")),
-            InstanceType='t2.micro',
-            KeyName='Alon_Sharf'
+            InstanceType=input("Pleae fill the Instace type you want: "),
+            KeyName=input("Pleae fill a KeyName: ")
         )
 #Kill an instance
     elif (choice == "3"):
+        tagname = input("Please fill an instance name: ")
+        tagvalue = input("Please fill a Value: ")
+        ec2.instances.filter(Filters=[
+            {'Name': 'tag': [tagname], 'Values': [tagvalue]},
+            {'Name': 'instance-state-name', 'Values': ['terminating']}
+        ]).terminate()
+        
         instances = input("enter the ids of the instances that you want to stop:")
         ids = [instances]
         ec2.instances.filter(InstanceIds=ids).terminate()
