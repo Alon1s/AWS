@@ -1,39 +1,54 @@
-import boto3
+iimport boto3
 ec2 = boto3.resource('ec2')
 
-option = input("Here are some options: \n1.Create VPC\n2.Delete VPC \n3.Describe VPC")
+#here info for crating an ec2
+imageId='ami-0de53d8956e8dcf80',
+instanceType='t2.micro',
+maxcount=1,
+mincount=1,
+
+option = input("Here are some options: \n1.Create VPC\n2.Delete VPC \n)
 while ("True"):
  #Create VPC
     if(option == "1"):
-        #vpc
+        #here all the info we will need for creating this vpc
         cidr_vpc = input('please set a CIDR for the VPC: (XXX.XXX.XXX.XXX/XX)')
-        vpc_id =input('please set an Id for the vpc: ')
+        vpc_id = input('please set an Id for the vpc: ')
+        igw_id = input("please set an id for the IGW: ")
+        subnet_ip = input("please set an ip for this subnet: (XXX.XXX.XXX.XXX/XX)")
+        subnet_id = input("please set an id for the subnet: ")
+        group_name = input("Please set a security group name: ")
+        group_des = input("Please write a small description: ")
+        des_cidr_block = '0.0.0.0/0'
+        cidr_ip = '0.0.0.0/0'
+        protocol = input("which protocol do you want? (HTTP/HTTPS/SSH/ALL TCP etc...)")
+        f_port = str(input("from which port you want to exit:"))
+        t_port = str(input("from which port you want to enter:"))
+        #vpc
         vpc = client.create_vpc(
         CidrBlock=cidr_vpc,
         vpcId=vpc_id)
         #igw and attach
-        igw_id = input("please set an id for the IGW: ")
         internetgateway = client.create_internet_gateway()
         vpc.attach_internet_gateway(
         InternetGatewayId=igw_id)
         #routetable and attach to subnet that you create
         routetable = vpc.create_route_table(
         VpcId=vpc_id)
-        route = client.create_route_table(DestinationCidrBlock='0.0.0.0/0', GatewayId=igw_id)
-        subnet = ec2.create_subnet(CidrBlock=input("Give an Ip for the VPC:XXX.XXX.XXX.XXX/XX"), VpcId=vpc_id)
-        subnet_id = input("please set an id for the subnet: ")
+        route = client.create_route_table(DestinationCidrBlock=des_cidr_block, GatewayId=igw_id)
+        subnet = ec2.create_subnet(CidrBlock=subnet_ip, VpcId=vpc_id)
         routetable.associate_with_subnet(SubnetId=subnet_id)
         #security group permmison to all here we can make it what ever you want
-        group_name = input("Please set a group name: ")
-        securitygroup = client.create_security_group(GroupName=group_name, Description=input("Please write a small description: "),VpcId=vpc_id)
-        securitygroup.authorize_ingress(CidrIp='0.0.0.0/0', IpProtocol='TCP', FromPort=80, ToPort=80)
+
+        securitygroup = client.create_security_group(GroupName=group_name, Description=group_des,VpcId=vpc_id)
+        securitygroup.authorize_ingress(CidrIp=cidr_ip, IpProtocol=protocol, FromPort=f_port, ToPort=t_port)
 
         #create an ec2
         instances = ec2.create_instances(
-            ImageId='ami-0de53d8956e8dcf80',
-            InstanceType='t2.micro',
-            MaxCount=1,
-            MinCount=1,
+            ImageId=imageid,
+            InstanceType=instancetype,
+            MaxCount=maxcount,
+            MinCount=mincount,
             NetworkInterfaces=[{
                 'SubnetId': subnet_id,
                 'DeviceIndex': 0,
@@ -42,50 +57,38 @@ while ("True"):
             }])
 #Delete VPC
     elif(option == "2"):
-        #Terminate the EC2
+        #here all the info we need to remove the vpc
         tagname = input("Please fill an instance name: ")
         tagvalue = input("Please fill a Value: ")
+        gp_rm = input("what is the security group name you want to remove: ")
+        rt_rm = input('what is the route table id?:')
+        igw_rm = input("What is the igw id that you want to remove?: ")
+        sub_rm = input("What is the subnet id that you want to remove?: ")
+        vpc_rm = input("What is the vpc id that you want to remove?: ")
+        #Terminate the EC2
         ec2.instances.filter(Filters=[
         {'Name': 'tag': [tagname],'Values': [tagvalue]},
         {'Name': 'instance-state-name', 'Values': ['terminating']}
         ]).terminate()
         #Delete decurity group
-        rm_gp = client.delete_security_group(
-            GroupName =group_name,
+        remove_gp = client.delete_security_group(
+            GroupName =gp_rm,
         )
         #Delete routetable
         rm_rtb = client.delete_route_table(
-            RouteTableId=input('what is the route table id?:'),
+            RouteTableId=rt_rm,
         )
         #Delete igw
         rm_igw = client.delete_internet_gateway(
-            InternetGatewayId=igw_id,
+            InternetGatewayId=igw_rm,
         )
         #Delete subnets
         rm_sub = client.delete_subnet(
-            SubnetId=subnet_id,
+            SubnetId=sub_rm,
         )
         #Delete vpc
         rm_vpc = client.delete_vpc(
-            VpcId=vpc_id,
+            VpcId=vpc_rm,
         )
-#Describe the VPC
-    elif (option == "3"):
-        #The vpc
-        des_vpc = client.describe_vpcs(
-            VpcIds=['Here the id']
-            ,
-        )
-        #The IGW
-        response = client.describe_internet_gateways(
-            Filters=[
-                {
-                    'Name': #here the name,
-                    'Values': [
-                        #####,
-                    ],
-                },
-            ],
-
     else:
         print("Only numbers between 1-3")
