@@ -1,11 +1,5 @@
-iimport boto3
+import boto3
 ec2 = boto3.resource('ec2')
-
-#here info for crating an ec2
-imageId='ami-0de53d8956e8dcf80',
-instanceType='t2.micro',
-maxcount=1,
-mincount=1,
 
 option = input("Here are some options: \n1.Create VPC\n2.Delete VPC \n)
 while ("True"):
@@ -44,9 +38,15 @@ while ("True"):
         securitygroup.authorize_ingress(CidrIp=cidr_ip, IpProtocol=protocol, FromPort=f_port, ToPort=t_port)
 
         #create an ec2
-        instances = ec2.create_instances(
-            ImageId=imageid,
-            InstanceType=instancetype,
+        choice = input("do you want to make an instance as well? y/n")
+        if (choice == "yes" or choice == "y"):
+            image_id = input("please insert and image id for the ec2: ")
+            instance_type = input("please insert the type you want for the ec2: ")
+            maxcount = str(input("How many instances do you wnat?: "))
+            mincount = 1
+            instances = ec2.create_instances(
+            ImageId=image_id,
+            InstanceType=instance_type,
             MaxCount=maxcount,
             MinCount=mincount,
             NetworkInterfaces=[{
@@ -55,9 +55,11 @@ while ("True"):
                 'AssociatePublicIpAddress': True,
                 'Groups': [securitygroup.group_id]
             }])
+        else:
+            break
 #Delete VPC
     elif(option == "2"):
-        #here all the info we need to remove the vpc
+        #Terminate the EC2
         tagname = input("Please fill an instance name: ")
         tagvalue = input("Please fill a Value: ")
         gp_rm = input("what is the security group name you want to remove: ")
@@ -65,7 +67,7 @@ while ("True"):
         igw_rm = input("What is the igw id that you want to remove?: ")
         sub_rm = input("What is the subnet id that you want to remove?: ")
         vpc_rm = input("What is the vpc id that you want to remove?: ")
-        #Terminate the EC2
+
         ec2.instances.filter(Filters=[
         {'Name': 'tag': [tagname],'Values': [tagvalue]},
         {'Name': 'instance-state-name', 'Values': ['terminating']}
