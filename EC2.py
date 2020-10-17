@@ -1,41 +1,59 @@
 import boto3
 
-choice = input("Here are some options: \n1.describe your instances \n2.deploy your instances \n3.destroy your instances \n4.stop your instances \n5.start your instances\n")
-#Describe an instance
-if choice == "1":
-    client = boto3.client('ec2')
-    response = client.describe_instances()
-    for x in response['Reservations']:
-        for y in x['Instances']:
-            print("ID: " + y['InstanceId'] + "\nIP Address: " + y['PublicIpAddress'] + "\n---------------------------------------")
-# create a new EC2 instance
-elif choice == "2":
-    ec2 = boto3.resource('ec2')
-    instances = ec2.create_instances(
-        ImageId='ami-0bbe28eb2173f6167',
-        MinCount=1,
-        MaxCount=int(input("enter how many instances do you want:\n")),
-        InstanceType='t2.micro',
-        KeyName='Alon_Sharf'
-    )
-#Kill an instance
-elif choice == "3":
-    instances = input("enter the ids of the instances that you want to stop:")
-    ids = [instances]
-    ec2 = boto3.resource('ec2')
-    ec2.instances.filter(InstanceIds=ids).terminate()
+ec2 = boto3.resource('ec2')
+while ("True"):
+    option = input("Here are some options:\n1.create an instances \n2.Start your instance \n3.Stop your instance \n4.Terminate your instance\n5.EC2 Describe")
+    # create a new EC2 instance
+    if (option == "1"):
+        instances = ec2.create_instances(
+            ImageId=input("Pleae fill an ImageId: "),
+            MinCount=1,
+            MaxCount=int(input("enter how many instances do you want:\n")),
+            InstanceType=input("Pleae fill the Instace type you want: "),
+            KeyName=input("Pleae fill a KeyName: ")
+        )
+    # Start
+    elif (option == "2"):
+        tagname = input("Please fill an instance name: ")
+        tagvalue = input("Please fill a Value: ")
+        ec2.instances.filter(Filters=[
+        {'Name': 'tag': [tagname],'Values': [tagvalue]},
+        {'Name': 'instance-state-name', 'Values': ['running']}
+        ]).start()
 
 
-#Stop an instance
-elif choice == "4":
-    instances = input("enter the ids of the instance that you want to stop:")
-    ids = [instances]
-    ec2 = boto3.resource('ec2')
-    ec2.instances.filter(InstanceIds=ids).stop()
+    # Stop
+    elif (option == "3"):
+        tagname = input("Please fill an instance name: ")
+        tagvalue = input("Please fill a Value: ")
+        ec2.instances.filter(Filters=[
+        {'Name': 'tag': [tagname], 'Values': [tagvalue]},
+        {'Name': 'instance-state-name', 'Values': ['stopped']}
+        ]).stop()
 
-#Start an instnace
-elif choice == "5":
-    instances = input("enter the ids of the instance that you want to start:")
-    ids = [instances]
-    ec2 = boto3.client('ec2')
-    ec2.start_instances(InstanceIds=ids)
+    # Terminate
+    elif (option == "4"):
+        tagname = input("Please fill an instance name: ")
+        tagvalue = input("Please fill a Value: ")
+        ec2.instances.filter(Filters=[
+        {'Name': 'tag': [tagname], 'Values': [tagvalue]},
+        {'Name': 'instance-state-name', 'Values': ['terminating']}
+        ]).terminate()
+
+    elif (choice == "5"):
+        client = boto3.client('ec2')
+        response = client.describe_instances()
+        for a in response['Reservations']:
+            for b in a['Instances']:
+                print("ID: " + b['InstanceId'] + "\nIP Address: " + b['PublicIpAddress'])
+
+    else:
+        print("Only numbers between 1-4 ")
+
+    exit = input("Do you need something else? y/n ")
+    if (exit == "yes" or exit == "y"):
+        continue
+    else:
+        break
+
+print("Were done!")
