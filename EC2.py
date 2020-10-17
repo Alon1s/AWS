@@ -27,11 +27,6 @@ while("True"):
             {'Name': 'tag': [tagname], 'Values': [tagvalue]},
             {'Name': 'instance-state-name', 'Values': ['terminating']}
         ]).terminate()
-        
-        instances = input("enter the ids of the instances that you want to stop:")
-        ids = [instances]
-        ec2.instances.filter(InstanceIds=ids).terminate()
-
 
 #Stop an instance
     elif (choice == "4"):
