@@ -2,7 +2,7 @@ import boto3
 
 ec2 = boto3.resource('ec2')
 while("True"):
-    option = input("Here are some options:\n1.create an instances \n2.Start your instances \n3.Stop your instances \n4.Terminate your instances\n")
+    option = input("Here are some options:\n1.create an instances \n2.Start your instance \n3.Stop your instance \n4.Terminate your instance\n")
 # create a new EC2 instance
     if (option == "1"):
         instances = ec2.create_instances(
@@ -42,3 +42,4 @@ while("True"):
         break
     else:
         print("Only numbers between 1-4")
+        continue
