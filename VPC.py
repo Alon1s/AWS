@@ -42,7 +42,7 @@ while ("True"):
         if (choice == "yes" or choice == "y"):
             image_id = input("please insert and image id for the ec2: ")
             instance_type = input("please insert the type you want for the ec2: ")
-            maxcount = str(input("How many instances do you wnat?: "))
+            maxcount = int(input("How many instances do you wnat?: "))
             mincount = 1
             instances = ec2.create_instances(
             ImageId=image_id,
