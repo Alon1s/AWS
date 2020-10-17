@@ -12,6 +12,7 @@ while("True"):
             InstanceType=input("Pleae fill the Instace type you want: "),
             KeyName=input("Pleae fill a KeyName: ")
         )
+        break
 #Start 
     elif (option == "2"):
         tagname = input("Please fill an instance name: ")
@@ -20,8 +21,7 @@ while("True"):
             {'Name': 'tag': [tagname], 'Values': [tagvalue]},
             {'Name': 'instance-state-name', 'Values': ['running']}
         ]).start()
-        
-
+        break
 #Stop
     elif (option == "3"):
         tagname = input("Please fill an instance name: ")
@@ -30,7 +30,7 @@ while("True"):
             {'Name': 'tag': [tagname], 'Values': [tagvalue]},
             {'Name': 'instance-state-name', 'Values': ['stopped']}
         ]).stop()
-        
+        break
 #Terminate 
     elif (option == "4"):
         tagname = input("Please fill an instance name: ")
@@ -39,11 +39,6 @@ while("True"):
             {'Name': 'tag': [tagname], 'Values': [tagvalue]},
             {'Name': 'instance-state-name', 'Values': ['terminating']}
         ]).terminate()
-        
-    exit= input("Do you want something else? y/n")
-    if(exit == "y" or exit == "yes")
         break
     else:
-        continue
-              
-print("Were done!")
+        print("Only numbers between 1-4")
