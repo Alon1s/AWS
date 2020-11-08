@@ -93,4 +93,4 @@ while ("True"):
             VpcId=vpc_rm,
         )
     else:
-        print("Only numbers between 1-3")
+        print("Only numbers between 1-2")
