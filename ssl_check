@@ -35,6 +35,6 @@ for arn in arns:
     else:
         if domain_name[0] == '*':
             new_name=domain_name[2:]
-            statsd_client.gauge(f'amazon.cert.{new_name}.exp', delta)
+            statsd_client.gauge(f'what_ever_you_chose.exp', delta)
         else:
-            statsd_client.gauge(f'amazon.cert.{domain_name}.exp', delta)
+            statsd_client.gauge(f'what_ever_you_chose.exp', delta)
