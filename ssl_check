@@ -11,7 +11,7 @@ arns = []
 
 client = boto3.client('acm')
 response = client.list_certificates()
-get_file = open('/mnt/state/config.yaml', 'r')
+get_file = open('the path to the file', 'r')
 file = get_file.read()
 dictionary = yaml.load(file, Loader=yaml.FullLoader)
 server_name = dictionary['server']
