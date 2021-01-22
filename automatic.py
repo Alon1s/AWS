@@ -17,7 +17,7 @@ def describe_instance():
     response = client.describe_instances()
     for x in response['Reservations']:
         for y in x['Instances']:
-            print("ID: " + y['InstanceId'] + "\nIP Address: " + x['PublicIpAddress'])
+            print("ID: " + y['InstanceId'] + "\nIP Address: " + x['PrivateIpAddress'])
             ##### there are many things that we can add to describe the instance see more from boto3 documation ####
 def destroy_instance():
     instances=input("Enter the ids of the instances that you want to destroy: ")
